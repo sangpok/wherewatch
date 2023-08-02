@@ -56,6 +56,7 @@ const ProviderTab = ({ tabs, contents }: ProviderTabProp) => {
               <img
                 className="rounded-full"
                 src={`http://image.tmdb.org/t/p/w45${icon}`}
+                alt={name}
               />
               <p className=" font-medium">{name}</p>
             </div>

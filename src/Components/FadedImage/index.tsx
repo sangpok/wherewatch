@@ -33,6 +33,7 @@ const FadedImage = ({ src, squareRatio = false }: FadedImageProp) => {
           src={src}
           onLoad={handleLoad}
           loading="lazy"
+          alt=""
         />
       )}
       <div className=" absolute left-[-0.27vw] top-0 h-[calc(100%+0.27vw)] w-[calc(100%+0.54vw)] bg-gradient-to-b from-transparent to-white" />

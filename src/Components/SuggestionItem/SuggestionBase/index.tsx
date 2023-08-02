@@ -29,7 +29,7 @@ const SuggestionBase = ({
       <div className="aspect-square w-[8.88vw] overflow-hidden rounded-full bg-gray-500 object-cover">
         {thumbnail && (
           // <img src={thumbnail} loading="lazy" width="100px" height="100px" />
-          <LazyImage src={thumbnail} />
+          <LazyImage src={thumbnail} alt={title} />
         )}
       </div>
 

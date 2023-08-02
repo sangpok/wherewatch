@@ -6,9 +6,10 @@ import useIntersectionObserver from "@Hooks/useIntersectionObserver";
 
 type LazyImageProp = {
   src: string;
+  alt: string;
 };
 
-const LazyImage = ({ src }: LazyImageProp) => {
+const LazyImage = ({ src, alt }: LazyImageProp) => {
   const imgRef = useRef<HTMLDivElement>(null);
 
   const [observe, unobserve] = useIntersectionObserver(
@@ -25,7 +26,9 @@ const LazyImage = ({ src }: LazyImageProp) => {
   }, []);
 
   return (
-    <div ref={imgRef}>{isObserved && <img src={src} loading="lazy" />}</div>
+    <div ref={imgRef}>
+      {isObserved && <img src={src} loading="lazy" alt={alt} />}
+    </div>
   );
 };
 
