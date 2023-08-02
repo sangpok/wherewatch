@@ -1,9 +1,7 @@
 # OTT 검색 서비스: Wherewatch
----
 *내가 원하는 OTT 작품을 언제 어디서든 편하게 검색해보세요!*
 
 ## 서비스 소개
-
 OTT서비스 마다 제공하는 콘텐츠가 차이가 있다보니 어디에서 볼 수 있는지 찾기가 힘든 경우가 있습니다. `Wherewatch`는 TMDB에서 제공하는 API를 사용하여 본인이 원하는 OTT 콘텐츠가 어디에 있는지 쉽게 검색할 수 있는 서비스입니다.
 
 ## 서비스 정보 개요
@@ -147,28 +145,33 @@ OTT서비스 마다 제공하는 콘텐츠가 차이가 있다보니 어디에�
 - 검색 모드 화면으로 Page Transition
 - 자동저장에 따른 최근 검색한 키워드 표출
 - 검색 모드 종료시 이전 화면으로 이동
+
 ![](https://velog.velcdn.com/images/sangpok/post/bd2f3e8b-d5ed-48bd-ae80-a31075665977/image.gif)
 
 ### 검색모드, 연관 검색어
 - 키워드에 따라 연관되는 콘텐츠 및 인물 표출
 - 인물일 경우 참여한 유명 콘텐츠 함께 표출
 - 포함되는 키워드에 Higtlight
+
 ![](https://velog.velcdn.com/images/sangpok/post/c0b1fb0f-dcfb-4cc9-938f-9a2a0f44df11/image.gif)
 
 ### 검색 결과 페이지(검색 모드X)
 - 경로: `/search?query=[QUERY]`
 - Fetching되는 동안 Skeleton 나타남
 - 화면 하단에 닿을 시 다음 페이지 로딩(무한 스크롤)
+
 ![](https://velog.velcdn.com/images/sangpok/post/6ea39406-4f83-4dc6-9c65-7eeaeba3e821/image.gif)
 
 ### 검색 결과 페이지(검색 모드O)
 - 검색 결과 페이지에서도 검색 모드로 전환 가능
+
 ![](https://velog.velcdn.com/images/sangpok/post/118b6d5d-8868-4681-ab39-c306932523d4/image.gif)
 
 ### 콘텐츠 상세 페이지(영화, TV프로그램)
 - 경로: `/tv/:id`, `/movie/:id`
 - 콘텐츠를 불러오는 동안 로딩 아이콘 표출
 - 해당 콘텐츠 정보 표출
+
 ![](https://velog.velcdn.com/images/sangpok/post/807ee755-88de-4254-b6e4-d37baa6abd9c/image.gif)
 
 ### 콘텐츠 상세 페이지(인물)
@@ -177,6 +180,7 @@ OTT서비스 마다 제공하는 콘텐츠가 차이가 있다보니 어디에�
 - 인물 프로필 Coverflow
 - 해당 인물 정보 표출
 - 해당 인물이 참여한 작품 표출
+
 ![](https://velog.velcdn.com/images/sangpok/post/c8acbe08-2930-4626-9cb3-282caeb9d77c/image.gif)
 
 ---
