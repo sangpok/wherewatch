@@ -1,6 +1,9 @@
+/** React관련 */
+import React, { ComponentProps } from "react";
+
+/** Component */
 import JoinedText from "@Components/JoinedText";
 import LazyImage from "@Components/LazyImage";
-import React, { ComponentProps } from "react";
 
 const Mark = React.memo(({ children }: ComponentProps<"span">) => (
   <mark className="bg-transparent text-[#939600]">{children}</mark>

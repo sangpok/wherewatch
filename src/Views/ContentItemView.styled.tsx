@@ -1,13 +1,20 @@
+/** React 관련 */
 import React from "react";
 
+/** Component */
 import JoinedText from "@Components/JoinedText";
 import WatchingRateBadge from "@Components/WatchingRatingBadge";
 
+/** Icon */
 import { BackIcon } from "@Icons/index";
 
+/** Animation */
 import { motion } from "framer-motion";
 
-import type { WatchingRate } from "@Components/WatchingRatingBadge";
+const whileTapProp = { scale: 0.85 };
+
+/** Type */
+import type { WatchingRate } from "@Types/index";
 
 type ParagraphProp = {
   title: string;
@@ -48,7 +55,7 @@ type BackButtonProp = {
 export const BackButton = React.memo(
   ({ onClick, fill = "white" }: BackButtonProp) => (
     <motion.div
-      whileTap={{ scale: 0.85 }}
+      whileTap={whileTapProp}
       className=" max-w-[8.88vw] rounded-full drop-shadow-lg"
       onClick={onClick}
     >

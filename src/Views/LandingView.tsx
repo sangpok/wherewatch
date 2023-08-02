@@ -1,10 +1,11 @@
 /** React */
-import React from "react";
+import React, { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 
 /** Component */
 import ContentCard from "@Components/ContentCard";
-import Skeleton from "@Layouts/Skeleton";
+import LandingViewSkeleton from "./LandingView.skeleton";
+import ScrollableContainer from "@Components/ScrollableContainer";
 
 /** Animation */
 import { defaultAnimation } from "@Animation/index";
@@ -15,7 +16,6 @@ import { getTrendingRank } from "@API/index";
 import { useQuery } from "react-query";
 
 /** Type */
-import ScrollableContainer from "@Components/ScrollableContainer";
 import type { TMDBContent, TMDBResponse } from "@Types/index";
 
 const LandingView = () => {
@@ -26,8 +26,10 @@ const LandingView = () => {
     getTrendingRank,
   );
 
+  const defaultAnimationProp = useMemo(() => defaultAnimation, []);
+
   if (isLoading) {
-    return <Skeleton />;
+    return <LandingViewSkeleton />;
   }
 
   if (!trending) {
@@ -35,7 +37,7 @@ const LandingView = () => {
   }
 
   return (
-    <motion.div {...defaultAnimation} className=" mt-[6.66vw] gap-[6.66vw]">
+    <motion.div {...defaultAnimationProp} className=" mt-[6.66vw] gap-[6.66vw]">
       <div className="space-y-[3.33vw]">
         <p className=" text-[6.66vw] font-bold">최근 인기있는 작품들</p>
         <ScrollableContainer>

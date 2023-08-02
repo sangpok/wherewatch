@@ -1,5 +1,8 @@
-import useIntersectionObserver from "@Hooks/useIntersectionObserver";
+/** React 관련 */
 import React, { useCallback, useEffect, useRef, useState } from "react";
+
+/** Hook */
+import useIntersectionObserver from "@Hooks/useIntersectionObserver";
 
 type LazyImageProp = {
   src: string;

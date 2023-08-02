@@ -1,5 +1,3 @@
-import { WatchingRate } from "@Components/WatchingRatingBadge";
-
 export type TMDBCommon = {
   adult: boolean;
   backdrop_path: string;
@@ -145,3 +143,5 @@ export type KeywordHistory = {
   keyword: string;
   date: string;
 };
+
+export type WatchingRate = "ALL" | "7" | "12" | "15" | "19";

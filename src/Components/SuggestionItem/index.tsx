@@ -1,16 +1,26 @@
-import React from "react";
+/** React 관련 */
+import React, { useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 
-import SuggestionBase, { SuggestionBaseProp } from "./SuggestionBase";
+/** Component */
+import SuggestionBase from "./SuggestionBase";
 
+/** Animation */
+import { motion } from "framer-motion";
+
+const whileTapProp = { scale: 0.9 };
+
+/** Type */
+import type { TMDBContent } from "@Types/index";
+import type { SuggestionBaseProp } from "./SuggestionBase";
+
+/** Util */
 import {
   getAdditionalElement,
   getDescriptions,
   getThumbnailSrc,
   getTitle,
 } from "@Lib/tmdb";
-import { TMDBContent } from "@Types/index";
-import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
 
 type SuggestionItemProp = {
   type?: "default" | "group";
@@ -33,13 +43,19 @@ const SuggestionItem = React.memo(
   }: SuggestionItemProp) => {
     const navigate = useNavigate();
 
+    const handleTap = useCallback(() => navigate(`/${contentType}/${id}`), []);
+    const handleTapWithPerson = useCallback(
+      () => navigate(`/person/${id}`),
+      [],
+    );
+
     const SuggestionItemDefault = (
       <motion.div
         data-item-id={id}
         // variants={animationVariant}
-        whileTap={{ scale: 0.9 }}
+        whileTap={whileTapProp}
         className="rounded-[1.11vw] border-[0.27vw] border-[#F5F5F5] p-[3.33vw]"
-        onTap={() => navigate(`/${contentType}/${id}`)}
+        onTap={handleTap}
       >
         <SuggestionBase
           thumbnail={thumbnail}
@@ -58,9 +74,9 @@ const SuggestionItem = React.memo(
       >
         <motion.div
           data-item-id={id}
-          whileTap={{ scale: 0.9 }}
+          whileTap={whileTapProp}
           className=" mx-[3.33vw] mb-[2.77vw] flex flex-row items-center space-x-[2.77vw]"
-          onTap={() => navigate(`/person/${id}`)}
+          onTap={handleTapWithPerson}
         >
           <SuggestionBase
             thumbnail={thumbnail}
@@ -77,7 +93,7 @@ const SuggestionItem = React.memo(
               <motion.div
                 key={child.id}
                 data-item-id={child.id}
-                whileTap={{ scale: 0.9 }}
+                whileTap={whileTapProp}
                 className=" mx-[3.33vw] flex flex-row items-center space-x-[2.77vw] py-[2.22vw]"
                 onTap={() => navigate(`/${child.media_type}/${child.id}`)}
               >

@@ -1,3 +1,4 @@
+/** React 관련 */
 import React from "react";
 
 const Dot = React.memo(() => (

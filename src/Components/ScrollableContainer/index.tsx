@@ -1,5 +1,7 @@
+/** React */
 import React, { useRef } from "react";
 
+/** Animation */
 import { motion } from "framer-motion";
 
 type ScrollableContainerProp = {

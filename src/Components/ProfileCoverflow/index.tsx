@@ -1,5 +1,25 @@
+/** React 관련 */
+import React, { useCallback, useEffect, useState, useMemo } from "react";
+
+/** Animation */
 import { PanInfo, motion, useAnimate } from "framer-motion";
-import React, { useCallback, useEffect, useState } from "react";
+
+/* #region AnimationProp */
+const initialAnimationProp = { scale: 0.7, opacity: 0 };
+
+const transitionAnimationProp = {
+  type: "spring",
+  damping: 100,
+  stiffness: 500,
+};
+
+const drapConstraintsProp = { left: 0, right: 0 };
+
+const noAnimateProp = {
+  scale: 1,
+  opacity: 1,
+};
+/* #endregion */
 
 type NavigationDotProp = {
   backgroundColor: string;
@@ -40,14 +60,6 @@ const NavigationDots = React.memo(
               backgroundColor={index === current ? "#add8e6" : "#d3d3d3"}
               onClick={onClick}
             />
-            // <motion.div
-            //   key={index}
-            //   animate={{
-            //     backgroundColor: index === current ? "#add8e6" : "#d3d3d3",
-            //   }}
-            //   className="block aspect-square w-[3.33vw]  rounded-full "
-            //   onClick={() => onClick(index)}
-            // />
           ))}
       </div>
     );
@@ -67,9 +79,9 @@ const ProfileImage = React.memo(
   ({ src, animate }: ProfileImageProfile) => {
     return (
       <motion.div
-        initial={{ scale: 0.7, opacity: 0 }}
+        initial={initialAnimationProp}
         animate={animate}
-        transition={{ type: "spring", damping: 100, stiffness: 500 }}
+        transition={transitionAnimationProp}
         className={` relative aspect-[3/4] min-w-[60.55vw] max-w-[60.55vw] select-none overflow-hidden rounded-[3.33vw] ${
           !src ? "bg-gray-500" : ""
         } shadow-[0_0_50px_-12px_rgb(0,0,0,0.25)]`}
@@ -92,13 +104,7 @@ const ProfileImage = React.memo(
 );
 
 const NoProfileImage = React.memo(() => (
-  <ProfileImage
-    src={null}
-    animate={{
-      scale: 1,
-      opacity: 1,
-    }}
-  />
+  <ProfileImage src={null} animate={noAnimateProp} />
 ));
 
 type ProfileCoverflowProp = {
@@ -110,8 +116,15 @@ const ProfileCoverflow = ({ viewport, profiles }: ProfileCoverflowProp) => {
   const [scope, animate] = useAnimate();
   const [selectedId, setSelectedId] = useState(0);
 
-  const viewportWidth = viewport.clientWidth;
-  const profileItemWidth = (60.55 * viewportWidth) / 100;
+  const viewportWidth = useMemo(
+    () => viewport.clientWidth,
+    [viewport.clientWidth],
+  );
+
+  const profileItemWidth = useMemo(
+    () => (60.55 * viewportWidth) / 100,
+    [viewportWidth],
+  );
 
   useEffect(() => {
     if (!scope.current) return;
@@ -157,7 +170,7 @@ const ProfileCoverflow = ({ viewport, profiles }: ProfileCoverflowProp) => {
     <>
       <motion.div
         drag="x"
-        dragConstraints={{ left: 0, right: 0 }}
+        dragConstraints={drapConstraintsProp}
         dragElastic={0.1}
         onDragEnd={handleDragEnd}
         className="relative w-fit"

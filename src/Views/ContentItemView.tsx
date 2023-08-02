@@ -1,5 +1,5 @@
 /** React */
-import React, { useCallback } from "react";
+import React, { useCallback, useMemo } from "react";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 
 /** Component */
@@ -7,6 +7,9 @@ import ContentCard from "@Components/ContentCard";
 import ProviderTab from "@Components/ProviderTab";
 import ScrollableContainer from "@Components/ScrollableContainer";
 import Wherewatch from "@Components/Wherewatch";
+
+/** Hook */
+import useNavigateBack from "@Hooks/useNavigateBack";
 
 /** Styled Component */
 import {
@@ -28,8 +31,12 @@ import { getContentDetail } from "@API/index";
 import { useQuery } from "react-query";
 
 /** Types */
-import type { WatchingRate } from "@Components/WatchingRatingBadge";
-import type { TMDBCast, TMDBContent, TMDBCrew } from "@Types/index";
+import type {
+  TMDBCast,
+  TMDBContent,
+  TMDBCrew,
+  WatchingRate,
+} from "@Types/index";
 
 /** Util */
 import {
@@ -40,7 +47,6 @@ import {
 
 /** Constant */
 import { IMAGE_URI_ORIGINAL } from "@Constants/index";
-import useNavigateBack from "@Hooks/useNavigateBack";
 const imageURIOriginal = IMAGE_URI_ORIGINAL as string;
 
 type LinkedWherewatchProp = {
@@ -73,13 +79,15 @@ const ContentItemView = ({ type: contentType }: ContentItemViewProp) => {
     () => getContentDetail(contentType, id),
   );
 
+  const defaultAnimationProp = useMemo(() => defaultAnimation, []);
+
   const handleWherewatchClick = useCallback(() => navigate("/"), []);
 
   if (isLoading) {
     return (
       <motion.div
-        {...defaultAnimation}
-        className="mt-[4.44vw] flex w-full items-center justify-center"
+        {...defaultAnimationProp}
+        className="mt-[10vw] flex w-full items-center justify-center"
       >
         <SyncLoader />
       </motion.div>
@@ -150,7 +158,6 @@ const ContentItemView = ({ type: contentType }: ContentItemViewProp) => {
     index: number,
   ) => {
     const { id } = credit;
-
     return (
       <ContentCard
         key={`${type}-${id}-${index}`}
@@ -163,7 +170,7 @@ const ContentItemView = ({ type: contentType }: ContentItemViewProp) => {
   };
 
   return (
-    <motion.div {...defaultAnimation} className="mb-[8.88vw]">
+    <motion.div {...defaultAnimationProp} className="mb-[8.88vw]">
       <Backdrop src={backdropSrc}>
         <div className="absolute left-[3.33vw] top-[6.66vw] flex flex-row place-content-center place-items-center gap-[1.11vw] ">
           <BackButton onClick={navigateBack} />

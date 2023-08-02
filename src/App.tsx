@@ -1,5 +1,5 @@
 /** React */
-import React, { useCallback } from "react";
+import React, { useCallback, useMemo } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 
 /** Layout */
@@ -23,9 +23,14 @@ const App = () => {
     if (pathname.startsWith("/person")) return "person";
   }, []);
 
+  const routeKey = useMemo(
+    () => getRouteKey(location.pathname),
+    [location.pathname],
+  );
+
   return (
     <AnimatePresence initial={false} mode="wait">
-      <Routes location={location} key={getRouteKey(location.pathname)}>
+      <Routes location={location} key={routeKey}>
         <Route path="/*" element={<RootLayout />} />
         <Route
           path="/tv/:id"

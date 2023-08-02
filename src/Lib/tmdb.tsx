@@ -1,4 +1,7 @@
+/** Component */
 import StarRating from "@Components/StarRating";
+
+/** Type */
 import {
   AvailableProvider,
   TMDBContent,
@@ -7,6 +10,8 @@ import {
   TMDBProviderType,
   TMDBTV,
 } from "@Types/index";
+
+/** Util */
 import { getDepartmentName } from "./genre";
 
 export function getSuggestionItemType(suggestion: TMDBContent) {

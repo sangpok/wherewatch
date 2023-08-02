@@ -1,5 +1,5 @@
 /** React  */
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState, useMemo } from "react";
 import {
   NavLink,
   Route,
@@ -20,6 +20,9 @@ const SearchResultView = React.lazy(() => import("@Views/SearchResultView"));
 /** Animation */
 import { defaultAnimation } from "@Animation/index.ts";
 import { AnimatePresence, motion } from "framer-motion";
+
+const initialAnimationProp = { gap: "3.33vw" };
+const transitionAnimationProp = { type: "tween" };
 
 /** API */
 import { getSuggestions } from "@API/index.ts";
@@ -74,13 +77,15 @@ const SearchHeader = React.memo(
     onBlur,
     onSubmit,
   }: SearchHeaderProp) => {
+    const animateProp = useMemo(() => ({ gap }), [gap]);
+
     return (
       <motion.div
         className=" flex flex-col"
         layout
-        initial={{ gap: "3.33vw" }}
-        animate={{ gap }}
-        transition={{ type: "tween" }}
+        initial={initialAnimationProp}
+        animate={animateProp}
+        transition={transitionAnimationProp}
       >
         <LinkedWherewatch
           smallType={isSearchMode}
@@ -111,6 +116,7 @@ const RootLayout = () => {
     "keyword-history",
     [],
   );
+
   const [allowsSavingKeyword, setAllowsSavingKeyword] =
     useLocalStorage<boolean>("allows-saving-keyword", true);
 
@@ -120,6 +126,8 @@ const RootLayout = () => {
 
   const [suggestions, setSuggestions] = useState<TMDBContent[]>([]);
   const [isSearchMode, setIsSearchMode] = useState<boolean>(false);
+
+  const defaultAnimationProp = useMemo(() => defaultAnimation, []);
 
   useEffect(() => {
     if (!isSuccess) return;
@@ -187,13 +195,28 @@ const RootLayout = () => {
     navigate("/");
   }, []);
 
+  const handleToggleSaving = useCallback(
+    () => setAllowsSavingKeyword(!allowsSavingKeyword),
+    [allowsSavingKeyword],
+  );
+
+  const routerKey = useMemo(
+    () => getRouteKey(location.pathname),
+    [location.pathname],
+  );
+
+  const searchHeaderGap = useMemo(
+    () => (isSearchMode ? "0" : "3.33vw"),
+    [isSearchMode],
+  );
+
   return (
     <motion.div
-      {...defaultAnimation}
+      {...defaultAnimationProp}
       className="mx-[3.33vw] my-[6.66vw] overflow-x-hidden will-change-transform"
     >
       <SearchHeader
-        gap={isSearchMode ? "0" : "3.33vw"}
+        gap={searchHeaderGap}
         isSearchMode={isSearchMode}
         keyword={keyword}
         onWherewatchClick={handleWherewatchClick}
@@ -205,22 +228,21 @@ const RootLayout = () => {
 
       <main>
         <AnimatePresence initial={false} mode="wait">
-          {isSearchMode ? (
+          {isSearchMode && (
             <SearchModeView
               key="searchmode"
               suggestions={suggestions}
-              // suggestions={debouncedSuggestions || []}
               keyword={debouncedKeyword}
               allowsSavingKeyword={allowsSavingKeyword}
-              onToggleSaving={() =>
-                setAllowsSavingKeyword(!allowsSavingKeyword)
-              }
+              onToggleSaving={handleToggleSaving}
               keywordHisory={keywordHistory}
               isSuccess={isSuccess}
               onSubmit={handleSubmit}
             />
-          ) : (
-            <Routes location={location} key={getRouteKey(location.pathname)}>
+          )}
+
+          {!isSearchMode && (
+            <Routes location={location} key={routerKey}>
               <Route index element={<LandingView />} />
               <Route path="search" element={<SearchResultView />} />
             </Routes>

@@ -1,6 +1,10 @@
-import { CloseIcon, SearchIcon } from "@Icons/index";
+/** React 관련 */
 import React, { MouseEventHandler, useCallback, useRef } from "react";
 
+/** Icon */
+import { CloseIcon, SearchIcon } from "@Icons/index";
+
+/** Animation */
 import { motion } from "framer-motion";
 
 type SearchModeExitProp = {

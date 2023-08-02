@@ -10,6 +10,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 /** Component */
 import ContentCard from "@Components/ContentCard";
+import SearchResultViewSkeleton from "./SearchResultView.skeleton";
 
 /** Icon */
 import { SyncLoader } from "react-spinners";
@@ -129,8 +130,14 @@ const SearchResultView = () => {
     }
   }, [location]);
 
+  const defaultAnimationProp = useMemo(() => defaultAnimation, []);
+
+  if (isLoading) {
+    return <SearchResultViewSkeleton />;
+  }
+
   return (
-    <motion.div {...defaultAnimation} className="mt-[6.66vw]">
+    <motion.div {...defaultAnimationProp} className="mt-[6.66vw]">
       {isSuccess && (
         <p className=" mb-[3.33vw] text-[3.88vw]">
           <strong>{query}</strong>에 대한{" "}

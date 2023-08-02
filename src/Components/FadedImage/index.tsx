@@ -1,3 +1,4 @@
+/** React 관련 */
 import React, { useCallback, useRef, useState } from "react";
 
 type FadedImageProp = {

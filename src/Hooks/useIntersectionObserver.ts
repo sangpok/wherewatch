@@ -1,3 +1,4 @@
+/** React 관련 */
 import { useCallback, useRef } from "react";
 
 export default function useIntersectionObserver(callback: () => void) {

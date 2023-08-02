@@ -1,21 +1,17 @@
-import React, { useCallback } from "react";
+/** React 관련 */
+import React, { useCallback, useMemo } from "react";
 
+/** Component */
 import FadedImage from "@Components/FadedImage";
 
+/** Animation */
 import { motion } from "framer-motion";
+const scaleAnimationProp = { scale: 0.95 };
 
-import { CardType } from "@Types/index";
+/** Type */
+import type { CardType } from "@Types/index";
 
-type ContentCardBaseProp = {
-  id: number;
-  src: string | null;
-  title: string;
-  subTitle: string;
-  cardType: CardType;
-  onTap: (id: number) => void;
-  additionalElements?: React.ReactNode;
-};
-
+/* #region Responsive Style Map */
 const cardSizeMap = {
   large: "w-full min-w-[60.83vw] max-w-[60.83vw]",
   medium: "w-full min-w-[44.44vw] max-w-[44.44vw]",
@@ -39,6 +35,17 @@ const spaceGapMap = {
   medium: "space-y-[2.22vw]",
   small: "space-y-[2.22vw]",
 };
+/* #endregion */
+
+type ContentCardBaseProp = {
+  id: number;
+  src: string | null;
+  title: string;
+  subTitle: string;
+  cardType: CardType;
+  onTap: (id: number) => void;
+  additionalElements?: React.ReactNode;
+};
 
 const ContentCardBase = ({
   id,
@@ -49,16 +56,16 @@ const ContentCardBase = ({
   onTap,
   additionalElements,
 }: ContentCardBaseProp) => {
-  const cardSize = cardSizeMap[cardType];
-  const titleSize = titleSizeMap[cardType];
-  const subSize = subSizeMap[cardType];
-  const spaceGap = spaceGapMap[cardType];
+  const cardSize = useMemo(() => cardSizeMap[cardType], []);
+  const titleSize = useMemo(() => titleSizeMap[cardType], []);
+  const subSize = useMemo(() => subSizeMap[cardType], []);
+  const spaceGap = useMemo(() => spaceGapMap[cardType], []);
 
   const handleTap = useCallback(() => onTap(id), []);
 
   return (
     <motion.div
-      whileTap={{ scale: 0.95 }}
+      whileTap={scaleAnimationProp}
       className={`flex aspect-[3/4] flex-col ${cardSize} overflow-hidden rounded-[1.11vw] border-[0.27vw] border-[#F5F5F5]`}
       onTap={handleTap}
     >

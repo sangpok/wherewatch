@@ -1,11 +1,14 @@
+/** React */
 import React from "react";
 
-type WatchingRate = "ALL" | "7" | "12" | "15" | "19";
+/** Type */
+import { WatchingRate } from "@Types/index";
 
 type WatchingRateBadgeProp = {
   watchingRate: WatchingRate;
 };
 
+/* #region Color Map By WatchingRate */
 const borderColorMap = {
   ALL: "border-black",
   "7": "border-[#D6CF2C]",
@@ -21,6 +24,7 @@ const textColorMap = {
   "15": "text-[#51AFE3]",
   "19": "text-[#E35151]",
 };
+/* #endregion */
 
 const WatchingRateBadge = ({ watchingRate }: WatchingRateBadgeProp) => {
   return (
@@ -39,5 +43,3 @@ const WatchingRateBadge = ({ watchingRate }: WatchingRateBadgeProp) => {
 const MemoedWatchingRateBadge = React.memo(WatchingRateBadge);
 
 export default MemoedWatchingRateBadge;
-
-export type { WatchingRate };

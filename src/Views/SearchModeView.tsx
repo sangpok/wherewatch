@@ -1,17 +1,18 @@
-import React from "react";
+/** React 관련 */
+import React, { useMemo } from "react";
 
-/** Component 관련 */
+/** Component */
 import SavedKeywordCard from "@Components/SavedKeywordCard";
 import SuggestionItem from "@Components/SuggestionItem";
 
-/** Animation 관련 */
-import { defaultAnimation } from "@Animation/index";
+/** Animation */
 import { motion } from "framer-motion";
+import { defaultAnimation } from "@Animation/index";
 
-/** Type 관련 */
+/** Type */
 import { KeywordHistory, TMDBContent } from "@Types/index";
 
-/** Util 관련 */
+/** Util */
 import {
   getAdditionalElement,
   getDescriptions,
@@ -39,12 +40,20 @@ const SearchModeView = ({
   onSubmit,
   onToggleSaving,
 }: SearchModeProp) => {
-  const couldShowKeywordHistory = keyword === "" && suggestions.length === 0;
-  const isNoResult = isSuccess && keyword !== "" && suggestions.length === 0;
+  const couldShowKeywordHistory = useMemo(
+    () => keyword === "" && suggestions.length === 0,
+    [keyword, suggestions],
+  );
+  const isNoResult = useMemo(
+    () => isSuccess && keyword !== "" && suggestions.length === 0,
+    [isSuccess, keyword, suggestions],
+  );
+
+  const defaultAnimationProp = useMemo(() => defaultAnimation, []);
 
   return (
     <motion.div
-      {...defaultAnimation}
+      {...defaultAnimationProp}
       className="mt-[3.33vw] select-none space-y-[3.33vw]"
     >
       {/* <AnimatePresence> */}

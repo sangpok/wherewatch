@@ -1,8 +1,17 @@
-import { HistoryIcon } from "@Icons/index";
-import { KeywordHistory } from "@Types/index";
-import { motion } from "framer-motion";
-import React, { useCallback } from "react";
+/** React 관련 */
+import React, { useCallback, useMemo } from "react";
 import { NavLink } from "react-router-dom";
+
+/** Icon */
+import { HistoryIcon } from "@Icons/index";
+
+/** Animation */
+import { motion } from "framer-motion";
+
+const whileTapProp = { scale: 0.9 };
+
+/** Type */
+import { KeywordHistory } from "@Types/index";
 
 type SavedKeywordCardProp = {
   allowsSavingKeyword: boolean;
@@ -19,8 +28,15 @@ const SavedKeywordCard = ({
   onSubmit,
   onToggleSaving,
 }: SavedKeywordCardProp) => {
-  const couldShowHistory = allowsSavingKeyword && history.length !== 0;
-  const allowSavingButNoHistory = allowsSavingKeyword && history.length === 0;
+  const couldShowHistory = useMemo(
+    () => allowsSavingKeyword && history.length !== 0,
+    [allowsSavingKeyword, history],
+  );
+
+  const allowSavingButNoHistory = useMemo(
+    () => allowsSavingKeyword && history.length === 0,
+    [allowsSavingKeyword, history],
+  );
 
   const returnHistoryDate = useCallback(
     (date: string) =>
@@ -41,7 +57,7 @@ const SavedKeywordCard = ({
           <ul>
             {history.map(({ keyword, date }, index) => (
               <motion.li
-                whileTap={{ scale: 0.9 }}
+                whileTap={whileTapProp}
                 className="flex flex-row place-content-center place-items-center gap-[2.22vw] px-[4.44vw] py-[3.33vw]"
                 key={index}
                 onClick={() => onSubmit(keyword)}

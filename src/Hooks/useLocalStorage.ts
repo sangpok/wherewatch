@@ -1,3 +1,4 @@
+/** React 관련 */
 import { useCallback, useEffect, useState } from "react";
 
 const PREFIX = "wherewatch-";

@@ -1,11 +1,16 @@
-import { defaultAnimation } from "@Animation/index";
+/** React 관련 */
+import React, { useMemo } from "react";
+
+/** Animation */
 import { motion } from "framer-motion";
-import React from "react";
+import { defaultAnimation } from "@Animation/index";
 
 const Skeleton = () => {
+  const defaultAnimationProp = useMemo(() => defaultAnimation, []);
+
   return (
     <motion.div
-      {...defaultAnimation}
+      {...defaultAnimationProp}
       className=" mt-[2.22vw] h-[8.88vw] w-full animate-pulse rounded-[1.11vw] bg-[#EAEAEA]"
     ></motion.div>
   );

@@ -1,5 +1,8 @@
-import { HistoryIcon } from "@Icons/index";
+/** React 관련 */
 import React from "react";
+
+/** Icon */
+import { HistoryIcon } from "@Icons/index";
 
 type HistoryDateProp = {
   date: string;

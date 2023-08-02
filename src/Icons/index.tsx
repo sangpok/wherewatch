@@ -1,5 +1,8 @@
-import type { DOMAttributes } from "react";
+/** React 관련 */
 import React from "react";
+
+/** Type */
+import type { DOMAttributes } from "react";
 
 type IconProp = DOMAttributes<SVGSVGElement> & {
   width?: string;

@@ -1,9 +1,8 @@
-import { TMDBPlatform, TMDBProviderType } from "@Types/index";
-import React, { useState } from "react";
+/** React 관련 */
+import React, { useCallback, useState } from "react";
 
-{
-  /* <ProviderTab tabs={["요금제", "구입"]} contents={["요금제": ["Wavve"], "구입": ["Wavee"]]} /> */
-}
+/** Type */
+import type { TMDBPlatform, TMDBProviderType } from "@Types/index";
 
 const getProvideTypeName = (provideType: TMDBProviderType) => {
   const nameMap = {
@@ -24,6 +23,11 @@ type ProviderTabProp = {
 const ProviderTab = ({ tabs, contents }: ProviderTabProp) => {
   const [selectedId, setSelectedId] = useState(0);
 
+  const handleTabClick = useCallback(
+    (index: number) => setSelectedId(index),
+    [],
+  );
+
   return (
     <div className="flex w-full flex-col">
       <div className="flex w-fit select-none flex-row rounded-[1.11vw] border-[0.27vw]  border-[#F5F5F5]">
@@ -35,7 +39,7 @@ const ProviderTab = ({ tabs, contents }: ProviderTabProp) => {
                 ? "bg-[#F5F5F5] font-semibold"
                 : "font-medium"
             }`}
-            onClick={() => setSelectedId(index)}
+            onClick={() => handleTabClick(index)}
           >
             {getProvideTypeName(tab as TMDBProviderType)}
           </div>

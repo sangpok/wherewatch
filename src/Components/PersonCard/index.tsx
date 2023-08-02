@@ -1,8 +1,13 @@
+/** React 관련 */
 import React, { useCallback } from "react";
 
+/** Component */
 import FadedImage from "@Components/FadedImage";
 
+/** Animation */
 import { motion } from "framer-motion";
+
+const whileTapProp = { scale: 0.9 };
 
 type PersonCardProp = {
   id: number;
@@ -23,7 +28,7 @@ const PersonCard = ({
 
   return (
     <motion.div
-      whileTap={{ scale: 0.9 }}
+      whileTap={whileTapProp}
       data-person-id={id}
       className=" inline-block aspect-[3/4] min-w-[28.05vw] max-w-[28.05vw] overflow-hidden rounded-[1.11vw] border-[0.27vw] border-[#f5F5F5] bg-white"
       onTap={handleTap}

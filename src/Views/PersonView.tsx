@@ -1,5 +1,5 @@
 /** React */
-import React from "react";
+import React, { useMemo } from "react";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 
 /** Component */
@@ -8,11 +8,14 @@ import JoinedText from "@Components/JoinedText";
 import ProfileCoverflow from "@Components/ProfileCoverflow";
 import Wherewatch from "@Components/Wherewatch";
 
-/** Hook */
-import useNavigateBack from "@Hooks/useNavigateBack";
+/** Style */
+import { BackButton } from "./ContentItemView.styled";
 
 /** Icon */
 import SyncLoader from "react-spinners/SyncLoader";
+
+/** Hook */
+import useNavigateBack from "@Hooks/useNavigateBack";
 
 /** API */
 import { getPersonDetail } from "@API/index";
@@ -27,7 +30,6 @@ import { motion } from "framer-motion";
 
 /** Util */
 import { getDepartmentName } from "@Lib/genre";
-import { BackButton } from "./ContentItemView.styled";
 
 const PersonView = () => {
   const navigate = useNavigate();
@@ -41,11 +43,13 @@ const PersonView = () => {
     data: personDetail,
   } = useQuery<TMDBPerson>(["detail", id], () => getPersonDetail(id));
 
+  const defaultAnimationProp = useMemo(() => defaultAnimation, []);
+
   if (isLoading) {
     return (
       <motion.div
-        {...defaultAnimation}
-        className="mt-[4.44vw] flex w-full items-center justify-center"
+        {...defaultAnimationProp}
+        className="mt-[10vw] flex w-full items-center justify-center"
       >
         <SyncLoader />
       </motion.div>
@@ -82,7 +86,7 @@ const PersonView = () => {
   })();
 
   return (
-    <motion.div {...defaultAnimation} className="overflow-hidden">
+    <motion.div {...defaultAnimationProp} className="overflow-hidden">
       <div className=" absolute left-[3.33vw] top-[6.66vw] flex flex-row gap-[1.11vw]">
         <BackButton onClick={() => navigateBack()} fill="black" />
 

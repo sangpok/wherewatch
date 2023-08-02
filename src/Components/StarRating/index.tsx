@@ -1,3 +1,4 @@
+/** React 관련 */
 import React from "react";
 
 type StarRatingProp = {
