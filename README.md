@@ -9,7 +9,7 @@ OTT서비스 마다 제공하는 콘텐츠가 차이가 있다보니 어디에�
 ## 서비스 정보 개요
 
 #### Deploy URL
-- https://web-wherewatch-3prof2llksd6nx5.sel4.cloudtype.app/
+- https://wherewatch.netlify.app/
 
 #### 화면설계 URL
 - [Wherewatch UI / Figma URL](https://www.figma.com/file/My6S2nDJSUg0MB8AffCyem/Wherewatch-v2?type=design&node-id=0%3A1&mode=design&t=DjYF73dVE9Q9ZTbR-1)
